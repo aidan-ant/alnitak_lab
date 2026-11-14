@@ -4,8 +4,9 @@ from astropy.time import Time
 from astroquery.astrometry_net import AstrometryNet
 from astropy.table import QTable
 from astropy import units as u
-from astropy.stats import sigma_clipped_stats
-from photutils import find_peaks, detect_threshold
+from astropy.stats import sigma_clipped_stats 
+from photutils.detection import find_peaks
+from photutils.segmentation import detect_threshold
 from astropy.coordinates import SkyCoord, Angle
 from source_tools import Star_Tools
 from header_modifications import Header_Info
@@ -23,13 +24,16 @@ import shutil
 import time
 import datetime
 
+
 #Get coordinates for plate solving from http://simbad.u-strasbg.fr/simbad/
 #Use icrs frame
 now = datetime.datetime.now()
-directory = os.path.dirname(sys.argv[0])
+directory = os.path.dirname(sys.argv[0]) # directory code is located in -a
 with open(os.path.join(directory, 'config.json')) as f:
     conf = json.load(f)
 
+#TODO
+#figure out how this works -a
 def set_logger(name):
     #Creates a logger object that can be passed to threads
     formatter = logging.Formatter(fmt='[%(asctime)s] %(levelname)s: %(message)s',
@@ -90,6 +94,7 @@ if os.path.exists(os.path.join(path + '/coords.json')):
     g = coords['RA'] + ' ' + coords['DEC']
     radec_deg = SkyCoord(g, unit=(u.hourangle, u.deg), frame='icrs')
 
+#=== I THINK THIS IS WEHRE WHAT WE WANT HAPPENS ===
 
 mdark_list = calib.mdark_create(path=path)
 

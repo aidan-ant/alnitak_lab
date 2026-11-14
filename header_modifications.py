@@ -25,7 +25,7 @@ class Header_Info():
     def years_since_2015(self, year):
         return year - 2015
 
-    def get_lst(self, date, long):
+    def get_lst(self, date, long): #lst = local sidereal time
 
         j2000 = datetime.datetime(2000, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
         date = datetime.datetime(date.year, date.month, date.day, date.hour, date.minute, date.second, tzinfo=datetime.timezone.utc)
@@ -40,7 +40,7 @@ class Header_Info():
         return lst
 
 
-    def radec_to_altaz(self, ra, dec, latitude, longitude, lst):
+    def radec_to_altaz(self, ra, dec, latitude, longitude, lst): #radec = right asecention and declination (basically astro spherical coords); altaz = altitude and azimuth
         ha = (lst - ra) % 24
         if ha > 12:
             ha -= 24

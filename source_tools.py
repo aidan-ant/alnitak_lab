@@ -9,6 +9,7 @@ import os
 
 saturation = 30000
 def hms_to_degree(angle):
+    '''convert hours, minutes, seconds to degrees'''
     string = angle.split(':')
     deg_angle = 15*float(string[0]) + 15*float(string[1])/60 + 15*float(string[2])/3600
     return deg_angle
@@ -23,6 +24,7 @@ class Star_Tools():
 
 
     def find_peaks(self, data):
+        '''??? - find local peak brightness values of a pixel in an roi (i think) - ??? - alt. = finds stars!?'''
         star_table = find_peaks(data=data, threshold=1.1*np.median(data), box_size=50, border_width=25)
         star_table.sort('peak_value', reverse=True)
         return star_table
